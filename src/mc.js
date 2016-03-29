@@ -437,7 +437,7 @@ function makeCmd(err, data, version, callback)
     var args = data.minecraftArguments;
     //general
     args = args.replace("${version_name}", version);
-    args = args.replace("${game_directory}", mc_path);
+    args = args.replace("${game_directory}", quote(mc_path));
     //auth
     args = args.replace("${auth_player_name}", cmdUsername);
     args = args.replace("${auth_access_token}", cmdAccessToken);
@@ -445,15 +445,16 @@ function makeCmd(err, data, version, callback)
     args = args.replace("${auth_uuid}", cmdUuid);
     args = args.replace("${user_type}", "legacy");
     args = args.replace("${user_properties}", "{}");
+    args = args.replace("${version_type}", data.type);
 
     //assets
     //fixme
 
     //<1.8
-    args = args.replace("${game_assets}", legacyAssetPath);
+    args = args.replace("${game_assets}", quote(legacyAssetPath));
 
     //1.8>
-    args = args.replace("${assets_root}", mc_path + path.sep + "assets");
+    args = args.replace("${assets_root}", quote(mc_path + path.sep + "assets"));
     args = args.replace("${assets_index_name}", assetsIndex);
 
     //?
@@ -473,7 +474,7 @@ function makeCmd(err, data, version, callback)
 
     //prepare lib for cmd running
     var exec = require('child_process').exec;
-    var finalCmd = java + " " + javaArgs.join(" ") + " " + libString + " -cp " + libs.join(libSep) + libSep + mcString + " " + mainClass + " " + args;
+    var finalCmd = java + " " + javaArgs.join(" ") + " " + quote(libString) + " -cp " + quote(libs.join(libSep)) + libSep + quote(mcString) + " " + mainClass + " " + args;
     //console.log(finalCmd);
 
     if (cmdAccessToken == "offline")

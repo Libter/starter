@@ -29,3 +29,11 @@ function checkInternet(cb)
         }
     })
 }
+
+/**
+ * Add quotes to string
+ * @param str
+ */
+function quote(str) {
+    return '"' + str + '"';
+}
