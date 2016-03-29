@@ -445,6 +445,7 @@ function makeCmd(err, data, version, callback)
     args = args.replace("${auth_uuid}", cmdUuid);
     args = args.replace("${user_type}", "legacy");
     args = args.replace("${user_properties}", "{}");
+    args = args.replace("${version_type}", data.type);
 
     //assets
     //fixme
