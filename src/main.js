@@ -87,12 +87,19 @@ else {
 //handle login form
 function loginFormSubmit()
 {
+    var username = $("#gameUsername").val();
+    var password = $("#gamePassword").val();
     $("#wrongCredentials").hide();
     $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").val("Pracuję...");
-    saveProfile($("#gameUsername").val(), $("#gamePassword").val(),
+    onlineLogin(username, password);
+}
+
+function onlineLogin(username, password)
+{
+    saveProfile(username, password,
             function (err, result) {
                 $("#signIn").removeClass("btn-default").addClass("btn-success").text("Zalogowano");
-                $("#username").text($("#gameUsername").val());
+                $("#username").text(username);
                 $("#usernameContainer").show();
                 $("#signin").hide();
                 $("#logout").show();
@@ -106,6 +113,19 @@ function loginFormSubmit()
                 $("#signIn").removeAttr("disabled").removeClass("btn-default").addClass("btn-success").val("Zaloguj");
             }
     );
+}
+
+function offlineLogin(username) 
+{
+    saveOfflinetoken(username, function () {
+        $("#username").text(username);
+        $("#usernameContainer").show();
+        $("#signin").hide();
+        $("#logout").show();
+        $("#versionListContainer").show();
+        $("#start_version").show();
+        $(".modal.in").modal("hide");
+    });
 }
 
 //start!
@@ -168,18 +188,10 @@ $(document).ready(function () {
     });
     //offline mode sign in
     $("#signInOffline").on("click", function () {
-        if ($("#gameUsername").val().length > 2)
+        var username = $("#gameUsername").val();
+        if (username.length > 2)
         {
-            saveOfflinetoken($("#gameUsername").val(), function () {
-                cmdUsername = $("#gameUsername").val();
-                $("#username").text(cmdUsername);
-                $("#usernameContainer").show();
-                $("#signin").hide();
-                $("#logout").show();
-                $("#versionListContainer").show();
-                $("#start_version").show();
-                $(".modal.in").modal("hide");
-            });
+            offlineLogin(username);
         }
         else
         {
