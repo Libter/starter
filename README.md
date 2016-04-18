@@ -24,7 +24,6 @@ dev.sh script helps with autobuild on launcher close, after build launcher is st
  - all currently available game versions are working fine
 
 ### Fixme
- - remember last used version
  - refresh mojang auth token
  - fix progress bar to show summary of overall process instead of current file process
 

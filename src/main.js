@@ -19,7 +19,9 @@ ga_storage._setAccount(atob("VUEtNDcyODQwODEtNQ=="));
 ga_storage._trackPageview("/" + os.platform() + "/" + launcherVersion + '/home/');
 var mc_path = process.cwd() + path.sep + "mc";
 var profileFile = process.cwd() + path.sep + "profile.json";
+var settingsFile = process.cwd() + path.sep + "settings.json";
 var gui = require('nw.gui');
+var settings = [];
 
 var cmdUsername = "lvlup.pro";
 var cmdAccessToken = "offline";
@@ -84,6 +86,19 @@ else {
     document.onmouseup = reEnable
 }
 
+function loadSettings() {
+    fs.readFile(settingsFile, "utf8", function(err, data) {
+        if (err)
+            console.log(err);
+        try {
+            settings = JSON.parse(data);
+            $("#versionsList").val(settings.version);
+        } catch(e) {
+            console.log(e);
+        }
+    });
+}
+
 //handle login form
 function loginFormSubmit()
 {
@@ -136,8 +151,17 @@ function offlineLogin(username)
     });
 }
 
+function saveSettings() 
+{
+    fs.writeFile(settingsFile, JSON.stringify(settings), function (err) {
+        if (err)
+            console.log(err);
+    });
+}
+
 //start!
 $(document).ready(function () {
+    loadSettings();
     downloadVersionList();
     loadProfile(//online callback
             function (username)
@@ -212,7 +236,11 @@ $(document).ready(function () {
     });
     $("#start_version").on("click", function () {
         $("#start_version").hide();
+        
         var ver = $("#versions option:selected").val();
+        settings["version"] = ver;
+        saveSettings();
+        
         downloadVersionFiles(ver, function () {
             downloadLibs(ver, function () {
                 downloadAssets(ver, function () {

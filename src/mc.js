@@ -60,6 +60,8 @@ function generateVersionList(err, data)
 function appendVersionList(item)
 {
     $("#versionsList").append('<option value="' + item.id + '">' + item.id + '</option>');
+    if(settings.version != undefined)
+        $("#versionsList").val(settings.version);
 }
 //
 // 2nd step - download version .json and .jar
