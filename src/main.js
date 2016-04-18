@@ -99,7 +99,7 @@ function onlineLogin(username, password)
     saveProfile(username, password,
             function (err, result) {
                 $("#signIn").removeClass("btn-default").addClass("btn-success").text("Zalogowano");
-                $("#username").text(username);
+                $("#username").text(result.selectedProfile.name);
                 $("#usernameContainer").show();
                 $("#signin").hide();
                 $("#logout").show();
