@@ -204,6 +204,7 @@ $(document).ready(function () {
             downloadLibs(ver, function () {
                 downloadAssets(ver, function () {
                     generateCmd(ver, function () {
+                        $("div .progress").hide();
                         $("#start_version").show();
                     });
                 });

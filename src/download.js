@@ -41,16 +41,8 @@ var download = function (url, dest, cb)
                 function (err, progress) {
                     if (err)
                         return console.log(err);
-                    //console.log(progress);
-                    if (progress.percentage == 100)
-                    {
-                        //console.log("Downloaded " + url);
-                        //console.log("To " + dest);
-                        $("div .progress").hide();
-                    } else
-                    {
-                        downloadBar(progress);
-                    }
+                    
+                    downloadBar(progress);
                 }, function (err, res) {
             if (err)
                 return console.log(err);
