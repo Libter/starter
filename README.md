@@ -28,7 +28,6 @@ dev.sh script helps with autobuild on launcher close, after build launcher is st
  - fix progress bar to show summary of overall process instead of current file process
 
 ### Todo
- - EN version + language switching button
  - forge mods support
  - java JVM parameters set by user
  - java downloader

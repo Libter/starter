@@ -98,6 +98,13 @@
                 font-size:18px;
             }
             
+            #languages {
+                position: absolute;
+                top: 32px;
+                right: 8px;
+                z-index: 1;
+            }
+            
             .progress-bar {
                 transition: width 0s;
             }
@@ -125,24 +132,28 @@
             </div>
             <div id="close"><img src="assets/img/close.png"></div>
         </div>
+        <div id="languages">
+            <button id="locale-pl" class="btn btn-primary"><img src="assets/img/pl.png" alt="pl" /> Polski</button>
+            <button id="locale-en" class="btn btn-primary"><img src="assets/img/en.png" alt="en" /> English</button>
+        </div>
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Logowanie</h4>
+                        <h4 class="modal-title" id="myModalLabel"><t>login</t></h4>
                     </div>
                     <div class="modal-body">
                         <form id="loginFormContainer">
                             <div id="loginForm" class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-xs-3 control-label">Login/e-mail</label>
+                                    <label class="col-xs-3 control-label"><t>loginOrEmail</t></label>
                                     <div class="col-xs-5">
                                         <input id="gameUsername" type="text" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-xs-3 control-label">Hasło</label>
+                                    <label class="col-xs-3 control-label"><t>password</t></label>
                                     <div class="col-xs-5">
                                         <input id="gamePassword" type="password" class="form-control"/>
                                     </div>
@@ -150,10 +161,10 @@
                                 <div class="form-group">
                                     <div class="col-xs-9 col-xs-offset-3">
                                         <div id="wrongCredentials" style="display:none"> 
-                                            <p>Nieprawidłowy login i hasło lub serwer autoryzacji jest niedostępny</p>
+                                            <p><t>authenticationFailed</t></p>
                                         </div>
-                                        <input id="signIn" class="btn btn-success" value="Zaloguj"/>
-                                        <div id="signInOffline" style="display:none" class="btn btn-primary">Tryb offline</div>
+                                        <button id="signIn" class="btn btn-success"><t>login</t></button>
+                                        <div id="signInOffline" style="display:none" class="btn btn-primary"><t>offlineMode</t></div>
                                     </div>
                                 </div>
 
@@ -167,7 +178,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <img id="logo" alt="Logo LVL UP" src="assets/img/lvlup.svg">
-                    <div class="shadow" style="font-size:20px">Szybki i prosty launcher od lvlup.pro</div>
+                    <div class="shadow" style="font-size:20px"><t>description</t></div>
                     <div class="shadow" style="font-size:45px">Starter <small>v0.11</small></div>
                 </div>
             </div>
@@ -175,14 +186,14 @@
                 <div class="col-xs-4 col-xs-offset-4">
                     <div id="versions">
                         <p id="usernameContainer" style="display:none" class="shadow">
-                            Zalogowano jako<br> <span id="username"></span>
+                            <t>loggedAs</t><br> <span id="username"></span>
                         </p>
-                        <button id="signin" type="button" class="btn btn-primary" style="display:none">Zaloguj się</button>
-                        <button id="logout" type="button" class="btn btn-sm btn-danger" style="display:none">Wyloguj się</button>
+                        <button id="signin" type="button" class="btn btn-primary" style="display:none"><t>login</t></button>
+                        <button id="logout" type="button" class="btn btn-sm btn-danger" style="display:none"><t>logout</t></button>
                         <div class="row" id="versionListContainer" style="display:none">
                             <div class="col-xs-6 col-xs-offset-3">
                                 <div class="form-group">
-                                    <label for="versionsList" class="shadow">Wersja</label>
+                                    <label for="versionsList" class="shadow"><t>version</t></label>
                                     <select  id="versionsList" class="form-control">
                                     </select>
                                 </div>
@@ -190,7 +201,7 @@
                         </div>
                         <br>
                         <button id="start_version" type="button" class="btn btn-lg btn-success" style="display:none">
-                            Start! <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                            <t>start</t> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
@@ -208,6 +219,9 @@
         <script type="text/javascript" src="lib/jquery-2.1.3.min.js"></script>
         <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
+        <script type="text/javascript" src="src/locales/en.js"></script>
+        <script type="text/javascript" src="src/locales/pl.js"></script>
+        
         <script type="text/javascript" src="src/download.js"></script>
         <script type="text/javascript" src="src/mc.js"></script>
         <script type="text/javascript" src="src/tools.js"></script>

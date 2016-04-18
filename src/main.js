@@ -87,15 +87,39 @@ else {
 }
 
 function loadSettings() {
-    fs.readFile(settingsFile, "utf8", function(err, data) {
-        if (err)
-            console.log(err);
-        try {
-            settings = JSON.parse(data);
-            $("#versionsList").val(settings.version);
-        } catch(e) {
-            console.log(e);
-        }
+    try {
+        settings = JSON.parse(fs.readFileSync(settingsFile, "utf8"));
+    } catch(e) {
+        console.log(e);
+        settings = [];
+    }
+}
+
+function loadLanguage() {
+    if (settings.language == undefined) {
+        if (navigator.language == 'pl')
+            window.t = locale.pl;
+        else
+            window.t = locale.en;
+    } else {
+        window.t = locale[settings.language];
+    }
+
+    $.each($("t"), function(index, elem) {
+       elem = $(elem);
+       var key = elem.html();
+       elem.replaceWith(t[key]);
+    });
+    
+    $("#locale-pl").click(function() {
+        settings.language = 'pl';
+        saveSettings();
+        location.reload();
+    });
+    $("#locale-en").click(function() {
+        settings.language = 'en';
+        saveSettings();
+        location.reload();
     });
 }
 
@@ -110,14 +134,14 @@ function loginFormSubmit()
 function onlineLogin(username, password)
 {
     if (username.length < 2) { // http://gaming.stackexchange.com/questions/179832/minimum-length-for-minecraft-usernames
-        alert("Login musi mieć co najmniej 2 znaki!");
+        alert(t.loginTooShort.replace('<number>', 2));
         return;
     }
     $("#wrongCredentials").hide();
-    $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").val("Pracuję...");
+    $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").html(t.working);
     saveProfile(username, password,
             function (err, result) {
-                $("#signIn").removeClass("btn-default").addClass("btn-success").text("Zalogowano");
+                $("#signIn").removeClass("btn-default").addClass("btn-success").text(t.logged);
                 $("#username").text(result.selectedProfile.name);
                 $("#usernameContainer").show();
                 $("#signin").hide();
@@ -129,7 +153,7 @@ function onlineLogin(username, password)
             function (err, result) {
                 $("#wrongCredentials").show();
                 $("#signInOffline").show();
-                $("#signIn").removeAttr("disabled").removeClass("btn-default").addClass("btn-success").val("Zaloguj");
+                $("#signIn").removeAttr("disabled").removeClass("btn-default").addClass("btn-success").html(t.login);
             }
     );
 }
@@ -137,7 +161,7 @@ function onlineLogin(username, password)
 function offlineLogin(username) 
 {
     if (username.length < 3) {
-        alert("Login musi mieć co najmniej 3 znaki!");
+        alert(t.loginTooShort.replace('<number>', 3));
         return;
     }
     saveOfflinetoken(username, function () {
@@ -153,15 +177,16 @@ function offlineLogin(username)
 
 function saveSettings() 
 {
-    fs.writeFile(settingsFile, JSON.stringify(settings), function (err) {
-        if (err)
-            console.log(err);
-    });
+    fs.writeFileSync(settingsFile, JSON.stringify({
+        version: settings.version,
+        language: settings.language
+    }));
 }
 
 //start!
 $(document).ready(function () {
     loadSettings();
+    loadLanguage();
     downloadVersionList();
     loadProfile(//online callback
             function (username)
@@ -231,7 +256,7 @@ $(document).ready(function () {
             $("#username").val("");
             $("#usernameContainer").hide();
             $("#signin").show();
-            $("#signIn").attr("disabled", false).val("Zaloguj");
+            $("#signIn").attr("disabled", false).val(t.login);
         });
     });
     $("#start_version").on("click", function () {
