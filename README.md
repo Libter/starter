@@ -26,7 +26,6 @@ dev.sh script helps with autobuild on launcher close, after build launcher is st
 ### Fixme
  - remember last used version
  - refresh mojang auth token
- - validate empty username
  - fix progress bar to show summary of overall process instead of current file process
 
 ### Todo

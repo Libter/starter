@@ -89,13 +89,17 @@ function loginFormSubmit()
 {
     var username = $("#gameUsername").val();
     var password = $("#gamePassword").val();
-    $("#wrongCredentials").hide();
-    $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").val("Pracuję...");
     onlineLogin(username, password);
 }
 
 function onlineLogin(username, password)
 {
+    if (username.length < 2) { // http://gaming.stackexchange.com/questions/179832/minimum-length-for-minecraft-usernames
+        alert("Login musi mieć co najmniej 2 znaki!");
+        return;
+    }
+    $("#wrongCredentials").hide();
+    $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").val("Pracuję...");
     saveProfile(username, password,
             function (err, result) {
                 $("#signIn").removeClass("btn-default").addClass("btn-success").text("Zalogowano");
@@ -117,6 +121,10 @@ function onlineLogin(username, password)
 
 function offlineLogin(username) 
 {
+    if (username.length < 3) {
+        alert("Login musi mieć co najmniej 3 znaki!");
+        return;
+    }
     saveOfflinetoken(username, function () {
         $("#username").text(username);
         $("#usernameContainer").show();
@@ -188,15 +196,7 @@ $(document).ready(function () {
     });
     //offline mode sign in
     $("#signInOffline").on("click", function () {
-        var username = $("#gameUsername").val();
-        if (username.length > 2)
-        {
-            offlineLogin(username);
-        }
-        else
-        {
-            alert("Login musi mieć co najmniej 3 znaki");
-        }
+        offlineLogin($("#gameUsername").val());
     });
     //logout
     $("#logout").on("click", function () {
