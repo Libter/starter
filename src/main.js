@@ -207,6 +207,7 @@ $(document).ready(function () {
             $("#username").val("");
             $("#usernameContainer").hide();
             $("#signin").show();
+            $("#signIn").attr("disabled", false).val("Zaloguj");
         });
     });
     $("#start_version").on("click", function () {
