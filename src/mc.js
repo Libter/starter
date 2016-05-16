@@ -34,7 +34,7 @@ var legacyAssetPath;
 function downloadVersionList()
 {
     //todo check date or force to download
-    downloadIfNotExist(
+    download(
             "http://s3.amazonaws.com/Minecraft.Download/versions/versions.json",
             mc_path + path.sep + "versions" + path.sep + "versions.json",
             processVersionList);

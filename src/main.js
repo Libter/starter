@@ -266,6 +266,8 @@ $(document).ready(function () {
         settings["version"] = ver;
         saveSettings();
         
+        $("div .progress").show();
+        
         downloadVersionFiles(ver, function () {
             downloadLibs(ver, function () {
                 downloadAssets(ver, function () {

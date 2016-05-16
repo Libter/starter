@@ -22,7 +22,6 @@ var httpreq = require('httpreq');
 function downloadBar(progress)
 {
     var percentageRound = Math.round(progress.percentage);
-    $("div .progress").show();
     $("div .download_progress").css('width', progress.percentage + '%').attr('aria-valuenow', progress.percentage);
     $("#download_progress_perc").text(percentageRound);
     $("#download_kb").text(Math.round(progress.currentsize / 1024) + "/" + Math.round(progress.totalsize / 1024) + "KB");
