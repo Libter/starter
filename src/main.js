@@ -254,19 +254,19 @@ function checkUpdate() {
 }
 
 function preventSelection() {
-    var omitformtags = ["input", "textarea", "select"];
-    omitformtags = omitformtags.join("|");
+    var allowedTags = ["input", "textarea", "select"];
     
-    if (typeof document.onselectstart != "undefined")
-        document.onselectstart = new Function("return false")
-    else {
+    if (typeof document.onselectstart == "undefined") {
         document.onmousedown = function() {
-            if (omitformtags.indexOf(e.target.tagName.toLowerCase()) == -1)
-                return false
-        }
-        document.onmouseup = function() {
-            return true
-        }
+            return allowedTags.indexOf(e.target.tagName.toLowerCase()) != -1;
+        };
+        document.onmouseup = function() { 
+            return true; 
+        };
+    } else {
+        document.onselectstart = function() { 
+            return false; 
+        };
     }
 }
 
