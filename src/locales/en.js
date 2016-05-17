@@ -10,7 +10,7 @@ window.locale.en = {
     password: 'Password',
     offlineMode: 'Offline mode',
     version: 'Version',
-    start: 'Start!',
+    start: 'Start',
     authenticationFailed: 'Invalid login and password or authentication server is unavailable',
     loginTooShort: 'Login must have at least <number> characters!',
     emptyPasswordInfo: 'If password is not specified will be logged in offline mode.'

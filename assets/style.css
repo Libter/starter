@@ -113,6 +113,8 @@ a:hover {
 .progress {
     position: relative;
     background: rgba(0, 0, 0, 0.7);
+    box-shadow: none;
+    display: none;
 }
 
 .progress .text {
