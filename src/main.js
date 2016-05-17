@@ -42,9 +42,13 @@ $(function () {
     downloadVersionList();
     loadProfile(
         //online callback
-        loadProfileCallback,
+        function() {
+         afterLogin(cmdUsername, "online");
+        },
         //offline callback
-        loadProfileCallback,
+        function() {
+            afterLogin(cmdUsername, "offline");
+        },
         //no account callback
         function () {
             $("#signin").show();
@@ -159,14 +163,6 @@ function logoutClick() {
         $("#signin").show();
         $("#signIn").attr("disabled", false).val(t.login);
     });
-}
-
-function loadProfileCallback() {
-    $("#username").text(cmdUsername);
-    $("#usernameContainer").show();
-    $("#logout").show();
-    $("#versionListContainer").show();
-    $("#start_version").show();
 }
 
 function checkUpdate() {
