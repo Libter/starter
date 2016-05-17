@@ -33,6 +33,7 @@ ga_storage._setAccount(atob("VUEtNDcyODQwODEtNQ=="));
 ga_storage._trackPageview("/" + os.platform() + "/" + launcherVersion + '/home/');
 
 initFeedbackButton();
+preventSelection();
 checkUpdate();
 
 //real browser
@@ -40,23 +41,6 @@ $('a[target=_blank]').on('click', function () {
     require('nw.gui').Shell.openExternal(this.href);
     return false;
 });
-
-//prevent selection
-var omitformtags = ["input", "textarea", "select"]
-omitformtags = omitformtags.join("|")
-function disableselect(e) {
-    if (omitformtags.indexOf(e.target.tagName.toLowerCase()) == -1)
-        return false
-}
-function reEnable() {
-    return true
-}
-if (typeof document.onselectstart != "undefined")
-    document.onselectstart = new Function("return false")
-else {
-    document.onmousedown = disableselect
-    document.onmouseup = reEnable
-}
 
 function loadSettings() {
     try {
@@ -267,6 +251,23 @@ function checkUpdate() {
             }
         }
     });
+}
+
+function preventSelection() {
+    var omitformtags = ["input", "textarea", "select"];
+    omitformtags = omitformtags.join("|");
+    
+    if (typeof document.onselectstart != "undefined")
+        document.onselectstart = new Function("return false")
+    else {
+        document.onmousedown = function() {
+            if (omitformtags.indexOf(e.target.tagName.toLowerCase()) == -1)
+                return false
+        }
+        document.onmouseup = function() {
+            return true
+        }
+    }
 }
 
 function initFeedbackButton() {
