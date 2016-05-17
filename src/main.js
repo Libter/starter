@@ -19,10 +19,8 @@ var launcherVersion = 100;
 
 var mc_path = process.cwd() + path.sep + "mc";
 var profileFile = process.cwd() + path.sep + "profile.json";
-var settingsFile = process.cwd() + path.sep + "settings.json";
 
 var gui = require('nw.gui');
-var settings = [];
 
 var cmdUsername = "lvlup.pro";
 var cmdAccessToken = "offline";
@@ -37,80 +35,74 @@ preventSelection();
 openLinksInRealBrowser();
 checkUpdate();
 
-function saveSettings() {
-    fs.writeFileSync(settingsFile, JSON.stringify({
-        version: settings.version,
-        language: settings.language
-    }));
-}
-
-function loadSettings() {
-    try {
-        settings = JSON.parse(fs.readFileSync(settingsFile, "utf8"));
-    } catch(e) {
-        console.log(e);
-        settings = [];
-    }
-}
-
-function loadLanguage() {
-    if (settings.language == undefined) {
-        if (navigator.language == 'pl')
-            window.t = locale.pl;
-        else
-            window.t = locale.en;
-    } else {
-        window.t = locale[settings.language];
-    }
-
-    $.each($("t"), function(index, elem) {
-       elem = $(elem);
-       var key = elem.html();
-       elem.replaceWith(t[key]);
-    });
+//start!
+$(document).ready(function () {
+    loadSettings();
+    loadLanguage();
+    downloadVersionList();
+    loadProfile(
+        //online callback
+        loadProfileCallback,
+        //offline callback
+        loadProfileCallback,
+        //no account callback
+        function () {
+            $("#signin").show();
+        }
+    );
     
-    $("#locale-pl").click(function() {
-        settings.language = 'pl';
-        saveSettings();
-        location.reload();
-    });
-    $("#locale-en").click(function() {
-        settings.language = 'en';
-        saveSettings();
-        location.reload();
-    });
+    //listeners
+    $("#close").on("click", window.close);
+    $("#loginFormContainer").on("submit", loginSubmit);
+    $("#signin").on("click", loginClick);
+    $("#signIn").on("click", loginSubmit);
+    $("#signInOffline").on("click", offlineLoginClick);
+    $("#logout").on("click", logoutClick);
+    $("#start_version").on("click", startClick);
+});
+
+function loginClick() {
+    $('#loginModal').modal('show');
+    $("#gameUsername").focus();
 }
 
-//handle login form
-function loginFormSubmit() {
+function offlineLoginClick() {
+    offlineLogin($("#gameUsername").val());
+}
+
+function loginSubmit(event) {
+    if (event != undefined) { 
+        event.preventDefault(); 
+    }
+    
     var username = $("#gameUsername").val();
     var password = $("#gamePassword").val();
     onlineLogin(username, password);
 }
 
 function onlineLogin(username, password) {
-    if (username.length < 2) { // http://gaming.stackexchange.com/questions/179832/minimum-length-for-minecraft-usernames
+    if (username.length < 2) { //http://gaming.stackexchange.com/questions/179832/minimum-length-for-minecraft-usernames
         alert(t.loginTooShort.replace('<number>', 2));
         return;
     }
     $("#wrongCredentials").hide();
     $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").html(t.working);
     saveProfile(username, password,
-            function (err, result) {
-                $("#signIn").removeClass("btn-default").addClass("btn-success").text(t.logged);
-                $("#username").text(result.selectedProfile.name);
-                $("#usernameContainer").show();
-                $("#signin").hide();
-                $("#logout").show();
-                $("#versionListContainer").show();
-                $("#start_version").show();
-                $('.modal.in').modal('hide');
-            },
-            function (err, result) {
-                $("#wrongCredentials").show();
-                $("#signInOffline").show();
-                $("#signIn").removeAttr("disabled").removeClass("btn-default").addClass("btn-success").html(t.login);
-            }
+        function (err, result) {
+            $("#signIn").removeClass("btn-default").addClass("btn-success").text(t.logged);
+            $("#username").text(result.selectedProfile.name);
+            $("#usernameContainer").show();
+            $("#signin").hide();
+            $("#logout").show();
+            $("#versionListContainer").show();
+            $("#start_version").show();
+            $('.modal.in').modal('hide');
+        },
+        function (err, result) {
+            $("#wrongCredentials").show();
+            $("#signInOffline").show();
+            $("#signIn").removeAttr("disabled").removeClass("btn-default").addClass("btn-success").html(t.login);
+        }
     );
 }
 
@@ -130,98 +122,46 @@ function offlineLogin(username) {
     });
 }
 
-//start!
-$(document).ready(function () {
-    loadSettings();
-    loadLanguage();
-    downloadVersionList();
-    loadProfile(
-        //online callback
-        function (username) {
-            $("#username").text(cmdUsername);
-            $("#usernameContainer").show();
-            $("#logout").show();
-            $("#versionListContainer").show();
-            $("#start_version").show();
-        },
-        //offline callback
-        function (username) {
-            $("#username").text(cmdUsername);
-            $("#usernameContainer").show();
-            $("#logout").show();
-            $("#versionListContainer").show();
-            $("#start_version").show();
-        }, 
-        //no account callback
-        function () {
-            $("#signin").show();
-        }
-    );
+function startClick() {
+    $("#start_version").hide();
+        
+    var ver = $("#versions option:selected").val();
+    settings["version"] = ver;
+    saveSettings();
     
-    /*
-     * Listeners
-     */
-    //closing window
-    $("#close").on("click", function () {
-        window.close();
-    });
-    //login form on enter press
-    $("#loginFormContainer").submit(function (event) {
-        event.preventDefault();
-        loginFormSubmit();
-    });
-    //modal with login form
-    $("#signin").on("click", function () {
-        $('#loginModal').modal('show');
-    });
-    //login form focus on username
-    $('#loginModal').on('shown.bs.modal', function () {
-        $("#gameUsername").focus();
-    });
-    //login form on button click
-    $("#signIn").on("click", function () {
-        loginFormSubmit();
-    });
-    //offline mode sign in
-    $("#signInOffline").on("click", function () {
-        offlineLogin($("#gameUsername").val());
-    });
-    //logout
-    $("#logout").on("click", function () {
-        logout(function () {
-            $("#versionListContainer").hide();
-            $("#start_version").hide();
-            $("#logout").hide();
-            $("#username").val("");
-            $("#usernameContainer").hide();
-            $("#signin").show();
-            $("#signIn").attr("disabled", false).val(t.login);
-        });
-    });
-    $("#start_version").on("click", function () {
-        $("#start_version").hide();
-        
-        var ver = $("#versions option:selected").val();
-        settings["version"] = ver;
-        saveSettings();
-        
-        $("div .progress").show();
-        
-        downloadVersionFiles(ver, function () {
-            downloadLibs(ver, function () {
-                downloadAssets(ver, function () {
-                    generateCmd(ver, function () {
-                        $("div .progress").hide();
-                        $("#start_version").show();
-                    });
+    $("div .progress").show();
+    
+    downloadVersionFiles(ver, function () {
+        downloadLibs(ver, function () {
+            downloadAssets(ver, function () {
+                generateCmd(ver, function () {
+                    $("div .progress").hide();
+                    $("#start_version").show();
                 });
             });
         });
     });
-    /*
-     * End of listeners
-     */
-});
+}
+
+function logoutClick() {
+    logout(function () {
+        $("#versionListContainer").hide();
+        $("#start_version").hide();
+        $("#logout").hide();
+        $("#username").val("");
+        $("#usernameContainer").hide();
+        $("#signin").show();
+        $("#signIn").attr("disabled", false).val(t.login);
+    });
+}
+
+function loadProfileCallback() {
+    $("#username").text(cmdUsername);
+    $("#usernameContainer").show();
+    $("#logout").show();
+    $("#versionListContainer").show();
+    $("#start_version").show();
+}
 
 function checkUpdate() {
     httpreq.get("https://launcherminecraft.pl/update.json", function (err, res) {
@@ -234,47 +174,4 @@ function checkUpdate() {
             }
         }
     });
-}
-
-function openLinksInRealBrowser() {
-    $('a[target=_blank]').on('click', function () {
-        require('nw.gui').Shell.openExternal(this.href);
-        return false;
-    });
-}
-
-function preventSelection() {
-    var allowedTags = ["input", "textarea", "select"];
-    
-    if (typeof document.onselectstart == "undefined") {
-        document.onmousedown = function() {
-            return allowedTags.indexOf(e.target.tagName.toLowerCase()) != -1;
-        };
-        document.onmouseup = function() { 
-            return true; 
-        };
-    } else {
-        document.onselectstart = function() { 
-            return false; 
-        };
-    }
-}
-
-function initFeedbackButton() {
-    var h = document.getElementsByTagName('head')[0];
-    (function () {
-        var fc = document.createElement('link');
-        fc.type = 'text/css';
-        fc.rel = 'stylesheet';
-        fc.href = 'https://product.feedbacklite.com/feedbacklite.css';
-        h.appendChild(fc);
-    })();
-    fbl = {'campaign': {'id': 638, 'type': 2, 'size': 1, 'position': 9, 'tab': 2, 'control': 2}};
-    (function () {
-        var fj = document.createElement('script');
-        fj.type = 'text/javascript';
-        fj.async = true;
-        fj.src = 'https://product.feedbacklite.com/feedbacklite.js';
-        h.appendChild(fj);
-    })();
 }
