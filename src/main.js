@@ -278,7 +278,7 @@ function initFeedbackButton() {
         fc.href = 'https://product.feedbacklite.com/feedbacklite.css';
         h.appendChild(fc);
     })();
-    var fbl = {'campaign': {'id': 638, 'type': 2, 'size': 1, 'position': 9, 'tab': 2, 'control': 2}};
+    fbl = {'campaign': {'id': 638, 'type': 2, 'size': 1, 'position': 9, 'tab': 2, 'control': 2}};
     (function () {
         var fj = document.createElement('script');
         fj.type = 'text/javascript';
