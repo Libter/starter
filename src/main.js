@@ -258,17 +258,12 @@ $(document).ready(function () {
 
 function checkUpdate() {
     httpreq.get("https://launcherminecraft.pl/update.json", function (err, res) {
-        if (!err)
-        {
-            if (res.statusCode == 200)
-            {
-                var result = JSON.parse(res.body);
-                if (result.latest_version > launcherVersion)
-                {
-                    $("#updateMsg").text(result.msg);
-                    $("#updateTitle").text(result.title);
-                    $("#updateHref").attr("href", result.href);
-                }
+        if (!err && res.statusCode == 200) {
+            var result = JSON.parse(res.body);
+            if (result.latest_version > launcherVersion) {
+                $("#updateMsg").text(result.msg);
+                $("#updateTitle").text(result.title);
+                $("#updateHref").attr("href", result.href);
             }
         }
     });
