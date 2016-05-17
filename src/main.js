@@ -165,11 +165,6 @@ $(document).ready(function () {
     $("#close").on("click", function () {
         window.close();
     });
-    
-    //clickable lvlup.pro logo
-    $("#logo").on("click", function () {
-        gui.Shell.openExternal('https://lvlup.pro/#pk_campaign=app&pk_kwd=starter');
-    });
     //login form on enter press
     $("#loginFormContainer").submit(function (event) {
         event.preventDefault();

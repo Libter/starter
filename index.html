@@ -83,7 +83,11 @@
                 text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.88);
                 cursor: default;
             }
-            #logo
+            #logo 
+            {
+                border-bottom: none;
+            }
+            #logo img
             {
                 margin-top:10px;
                 cursor:pointer;
@@ -134,7 +138,9 @@
             <div class="container" style="padding-top:3px">
                 <span id="updateMsg"></span> <a id="updateHref" target="_blank" href=""><span id="updateTitle"></span></a>
             </div>
-            <div id="close"><img src="assets/img/close.png"></div>
+            <div id="close">
+                <img src="assets/img/close.png">
+            </div>
         </div>
         <div id="languages">
             <button id="locale-pl" class="btn btn-primary"><img src="assets/img/pl.png" alt="pl" /> Polski</button>
@@ -181,7 +187,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <img id="logo" alt="Logo LVL UP" src="assets/img/lvlup.svg">
+                    <a id="logo" href="https://lvlup.pro/#pk_campaign=app&pk_kwd=starter" target="_blank">
+                        <img alt="Logo LVL UP" src="assets/img/lvlup.svg">
+                    </a>
                     <div class="shadow" style="font-size:20px"><t>description</t></div>
                     <div class="shadow" style="font-size:45px">Starter <small>v0.11</small></div>
                 </div>
