@@ -22,48 +22,12 @@
         <link href='lib/fonts/css.css' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="node_modules/bootswatch/lumen/bootstrap.min.css">
         <style>
-            a:link {
-                text-decoration: none;
-                border-bottom: 2px solid green;
-            }
-            a:hover {
-                border-bottom-color: white;
-            }
-            a
-            {
-                -webkit-app-region: no-drag;
-            }
             html {
                 position: relative;
                 min-height: 100%;
                 user-select: none;
             }
-            #topBar
-            {
-                margin-top:0px;
-                -webkit-app-region: drag;
-                width:100%;
-                height:27px;
-                background-color: rgba(0, 0, 0, 0.45);
-            }
-            #updateTitle,#updateMsg
-            {
-                color:white;
-            }
-            #updateHref
-            {
-
-            }
-            #close
-            {
-                position: absolute;
-                top:0px;
-                right: 4px;
-                width: 17px;
-                height: 17px;
-                -webkit-app-region: no-drag;
-                cursor:pointer;
-            }
+            
             body {
                 font-family: 'Titillium Web', sans-serif;
                 user-select: none;
@@ -71,35 +35,63 @@
                 background: url('assets/img/bg.jpg');
                 background-size: cover;
             }
-            .footer {
-                position: absolute;
-                bottom: 30px;
+            
+            a {
+                -webkit-app-region: no-drag;
+            }
+            
+            a:link {
+                text-decoration: none;
+                border-bottom: 2px solid green;
+            }
+            
+            a:hover {
+                border-bottom-color: white;
+            }
+            
+            #topBar {
+                margin-top: 0px;
                 width: 100%;
-                height: 40px;
+                height: 27px;
+                background-color: rgba(0, 0, 0, 0.45);
+                -webkit-app-region: drag;
             }
-            .shadow{
-                color:white;
-                //text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.75);
-                text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.88);
-                cursor: default;
+            
+            #updateTitle,
+            #updateMsg {
+                color: white;
             }
-            #logo 
-            {
+            
+            #close {
+                position: absolute;
+                top: 0px;
+                right: 4px;
+                width: 17px;
+                height: 17px;
+                cursor: pointer;
+                -webkit-app-region: no-drag;
+            }
+            
+            #close img:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+            
+            #logo {
                 border-bottom: none;
             }
-            #logo img
-            {
-                margin-top:10px;
-                cursor:pointer;
-                width:333px;
+            
+            #logo img {
+                margin-top: 10px;
+                cursor: pointer;
+                width: 333px;
             }
-            #wrongCredentials p
-            {
-                color:red;
+            
+            #wrongCredentials p {
+                color: red;
             }
-            #username
-            {
-                font-size:18px;
+            
+            #username {
+                font-size: 18px;
             }
             
             #languages {
@@ -107,6 +99,19 @@
                 top: 32px;
                 right: 8px;
                 z-index: 1;
+            }
+            
+            .footer {
+                position: absolute;
+                bottom: 30px;
+                width: 100%;
+                height: 40px;
+            }
+            
+            .shadow {
+                color: white;
+                text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.88);
+                cursor: default;
             }
             
             .progress-bar {
@@ -125,10 +130,6 @@
                 position: absolute;
                 width: 100%;
                 text-shadow: 0px 0px 3px rgba(150, 150, 150, 1);
-            }
-            
-            #close img:hover {
-                background: rgba(255, 255, 255, 0.25);
             }
         </style>
         <title>LVL UP Starter</title>
