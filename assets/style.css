@@ -50,8 +50,7 @@ a:hover {
     -webkit-app-region: drag;
 }
 
-#updateTitle,
-#updateMsg {
+#updateTitle, #updateMsg {
     color: white;
 }
 
@@ -79,7 +78,7 @@ a:hover {
     width: 333px;
 }
 
-#wrongCredentials p {
+#wrongCredentials {
     color: red;
 }
 

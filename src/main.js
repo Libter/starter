@@ -36,7 +36,7 @@ openLinksInRealBrowser();
 checkUpdate();
 
 //start!
-$(document).ready(function () {
+$(function () {
     loadSettings();
     loadLanguage();
     downloadVersionList();
@@ -77,7 +77,11 @@ function loginSubmit(event) {
     
     var username = $("#gameUsername").val();
     var password = $("#gamePassword").val();
-    onlineLogin(username, password);
+    
+    if (password == "")
+        offlineLogin(username);
+    else
+        onlineLogin(username, password);
 }
 
 function onlineLogin(username, password) {

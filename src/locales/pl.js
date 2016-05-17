@@ -13,5 +13,6 @@ window.locale.pl = {
     version: 'Wersja',
     start: 'Start!',
     authenticationFailed: 'Nieprawidłowy login i hasło lub serwer autoryzacji jest niedostępny',
-    loginTooShort: 'Login musi mieć co najmniej <number> znaki!'
+    loginTooShort: 'Login musi mieć co najmniej <number> znaki!',
+    emptyPasswordInfo: 'Jeśli nie podasz hasła zostaniesz zalogowany w trybie offline.'
 };
