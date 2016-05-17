@@ -86,6 +86,14 @@ a:hover {
     font-size: 18px;
 }
 
+#login-mode.online {
+    color: #0f0;
+}
+
+#login-mode.offline {
+    color: #f00;
+}
+
 #languages {
     position: absolute;
     top: 32px;

@@ -2,7 +2,7 @@ if (window.locale == undefined) window.locale = [];
 window.locale.pl = {
     description: 'Szybki i prosty launcher od lvlup.pro',
     logging: 'Logowanie',
-    loggedAs: 'Zalogowano jako',
+    loggedAs: 'Zalogowano w trybie <span id="login-mode"></span> jako',
     logged: 'Zalogowano',
     working: 'Pracuję...',
     login: 'Zaloguj się',

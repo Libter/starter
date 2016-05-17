@@ -93,14 +93,9 @@ function onlineLogin(username, password) {
     $("#signIn").attr("disabled", true).removeClass("btn-success").addClass("btn-default").html(t.working);
     saveProfile(username, password,
         function (err, result) {
+            afterLogin(result.selectedProfile.name, "online");
+            
             $("#signIn").removeClass("btn-default").addClass("btn-success").text(t.logged);
-            $("#username").text(result.selectedProfile.name);
-            $("#usernameContainer").show();
-            $("#signin").hide();
-            $("#logout").show();
-            $("#versionListContainer").show();
-            $("#start_version").show();
-            $('.modal.in').modal('hide');
         },
         function (err, result) {
             $("#wrongCredentials").show();
@@ -116,14 +111,21 @@ function offlineLogin(username) {
         return;
     }
     saveOfflinetoken(username, function () {
-        $("#username").text(username);
-        $("#usernameContainer").show();
-        $("#signin").hide();
-        $("#logout").show();
-        $("#versionListContainer").show();
-        $("#start_version").show();
-        $(".modal.in").modal("hide");
+        afterLogin(username, "offline");
     });
+}
+
+function afterLogin(username, mode) {
+    $("#username").text(username);
+    $("#login-mode").text(mode).attr("class", mode);
+        
+    $("#usernameContainer").show();
+    $("#logout").show();
+    $("#versionListContainer").show();
+    $("#start_version").show();
+    
+    $("#signin").hide();
+    $(".modal.in").modal("hide");
 }
 
 function startClick() {

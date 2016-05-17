@@ -1,7 +1,7 @@
 if (window.locale == undefined) window.locale = [];
 window.locale.en = {
     description: 'Fast and easy launcher from lvlup.pro',
-    loggedAs: 'Logged in as',
+    loggedAs: 'Logged in <span id="login-mode"></span> mode as',
     logged: 'Logged',
     working: 'Working...',
     login: 'Sign In',
