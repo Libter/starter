@@ -34,13 +34,8 @@ ga_storage._trackPageview("/" + os.platform() + "/" + launcherVersion + '/home/'
 
 initFeedbackButton();
 preventSelection();
+openLinksInRealBrowser();
 checkUpdate();
-
-//real browser
-$('a[target=_blank]').on('click', function () {
-    require('nw.gui').Shell.openExternal(this.href);
-    return false;
-});
 
 function loadSettings() {
     try {
@@ -250,6 +245,13 @@ function checkUpdate() {
                 $("#updateHref").attr("href", result.href);
             }
         }
+    });
+}
+
+function openLinksInRealBrowser() {
+    $('a[target=_blank]').on('click', function () {
+        require('nw.gui').Shell.openExternal(this.href);
+        return false;
     });
 }
 
