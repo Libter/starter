@@ -37,6 +37,13 @@ preventSelection();
 openLinksInRealBrowser();
 checkUpdate();
 
+function saveSettings() {
+    fs.writeFileSync(settingsFile, JSON.stringify({
+        version: settings.version,
+        language: settings.language
+    }));
+}
+
 function loadSettings() {
     try {
         settings = JSON.parse(fs.readFileSync(settingsFile, "utf8"));
@@ -75,15 +82,13 @@ function loadLanguage() {
 }
 
 //handle login form
-function loginFormSubmit()
-{
+function loginFormSubmit() {
     var username = $("#gameUsername").val();
     var password = $("#gamePassword").val();
     onlineLogin(username, password);
 }
 
-function onlineLogin(username, password)
-{
+function onlineLogin(username, password) {
     if (username.length < 2) { // http://gaming.stackexchange.com/questions/179832/minimum-length-for-minecraft-usernames
         alert(t.loginTooShort.replace('<number>', 2));
         return;
@@ -109,8 +114,7 @@ function onlineLogin(username, password)
     );
 }
 
-function offlineLogin(username) 
-{
+function offlineLogin(username) {
     if (username.length < 3) {
         alert(t.loginTooShort.replace('<number>', 3));
         return;
@@ -126,40 +130,34 @@ function offlineLogin(username)
     });
 }
 
-function saveSettings() 
-{
-    fs.writeFileSync(settingsFile, JSON.stringify({
-        version: settings.version,
-        language: settings.language
-    }));
-}
-
 //start!
 $(document).ready(function () {
     loadSettings();
     loadLanguage();
     downloadVersionList();
-    loadProfile(//online callback
-            function (username)
-            {
-                $("#username").text(cmdUsername);
-                $("#usernameContainer").show();
-                $("#logout").show();
-                $("#versionListContainer").show();
-                $("#start_version").show();
-            }, //offline callback
-            function (username)
-            {
-                $("#username").text(cmdUsername);
-                $("#usernameContainer").show();
-                $("#logout").show();
-                $("#versionListContainer").show();
-                $("#start_version").show();
-            }, //no account callback
-            function () {
-                $("#signin").show();
-            }
+    loadProfile(
+        //online callback
+        function (username) {
+            $("#username").text(cmdUsername);
+            $("#usernameContainer").show();
+            $("#logout").show();
+            $("#versionListContainer").show();
+            $("#start_version").show();
+        },
+        //offline callback
+        function (username) {
+            $("#username").text(cmdUsername);
+            $("#usernameContainer").show();
+            $("#logout").show();
+            $("#versionListContainer").show();
+            $("#start_version").show();
+        }, 
+        //no account callback
+        function () {
+            $("#signin").show();
+        }
     );
+    
     /*
      * Listeners
      */
