@@ -165,12 +165,7 @@ $(document).ready(function () {
     $("#close").on("click", function () {
         window.close();
     });
-    //close button hover
-    $("#close").mouseenter(function () {
-        $("#close img").attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATdJREFUeNpiPHH6TDwDA4MiA/ngPhOFBoCAIhMDFQBVDGFBFzA3Ma4H0W/fvT9w5969gzBxFSUle2EhQQcQ++SZs404XbJuzRp4+IA0gDSC2EIC/O4wA4hyyekzZy6ZmpjowQxiZlZRFeDnl4bJv3v//iC6HuaUtDS4DX/+/mE4cvjIRwEBAUZpKSlxkBgHBwcfTP7O3bsnnzx7vgevS3R19T6A6DVr1l6QkZYRk5SUkIDJffjw4fHb9x92EBU7IINioqO1kA0AAaDrZGFhRNAQUCDq6uqYwPgvX716hS2wcRpy+fIlAVUVFQs4/8qVc319/TtAgY1sEN4wuX3zliByIH778XOHqrqaACiMQGKwWEMHjMAM2ICeToAa38MCGeZCmAVBISH38RoyoHkHZMgdCs24AxBgAArScCh0FiY/AAAAAElFTkSuQmCC');
-    }).mouseleave(function () {
-        $("#close img").attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAOhJREFUeNpi/P//PwOlgImBCoAFRFjb2pKl+ejhw1R2CZrpsECqB7qwCUm8Dkg1Ql3OiC9MkEO5EaqRobmxcR/MAKICdv6CBcjcxlUrVtx3cnJyRBJrImRI05y5c1EMkpaWVoCx9+3ffwjolXpChtTDDDp77hyKxOPHj+/X1tXZE5tO6gvy8+8bGxmhCMrKyirCwoigIaBADA0JUYTxL126xIAtsPEZUocciGvWrn2UmZ2NEdiEDGlEDsT+CRPksQU2OmAEZUCkZP8fKRrr0QyHeYMRPdmjp1hGHJbVoxmK6ZJBURQABBgAxBJeei2YDBYAAAAASUVORK5CYII=');
-    });
+    
     //clickable lvlup.pro logo
     $("#logo").on("click", function () {
         gui.Shell.openExternal('https://lvlup.pro/#pk_campaign=app&pk_kwd=starter');
