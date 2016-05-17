@@ -14,12 +14,13 @@
  
  Copyright (C) 2015 Michał Frąckiewicz
  */
+
 var launcherVersion = 100;
-ga_storage._setAccount(atob("VUEtNDcyODQwODEtNQ=="));
-ga_storage._trackPageview("/" + os.platform() + "/" + launcherVersion + '/home/');
+
 var mc_path = process.cwd() + path.sep + "mc";
 var profileFile = process.cwd() + path.sep + "profile.json";
 var settingsFile = process.cwd() + path.sep + "settings.json";
+
 var gui = require('nw.gui');
 var settings = [];
 
@@ -28,45 +29,16 @@ var cmdAccessToken = "offline";
 var cmdSession = "offline";
 var cmdUuid = "offline";
 
+ga_storage._setAccount(atob("VUEtNDcyODQwODEtNQ=="));
+ga_storage._trackPageview("/" + os.platform() + "/" + launcherVersion + '/home/');
+
+initFeedbackButton();
+checkUpdate();
+
 //real browser
 $('a[target=_blank]').on('click', function () {
     require('nw.gui').Shell.openExternal(this.href);
     return false;
-});
-
-//feedback button
-var h = document.getElementsByTagName('head')[0];
-(function () {
-    var fc = document.createElement('link');
-    fc.type = 'text/css';
-    fc.rel = 'stylesheet';
-    fc.href = 'https://product.feedbacklite.com/feedbacklite.css';
-    h.appendChild(fc);
-})();
-var fbl = {'campaign': {'id': 638, 'type': 2, 'size': 1, 'position': 9, 'tab': 2, 'control': 2}};
-(function () {
-    var fj = document.createElement('script');
-    fj.type = 'text/javascript';
-    fj.async = true;
-    fj.src = 'https://product.feedbacklite.com/feedbacklite.js';
-    h.appendChild(fj);
-})();
-
-//update check
-httpreq.get("https://launcherminecraft.pl/update.json", function (err, res) {
-    if (!err)
-    {
-        if (res.statusCode == 200)
-        {
-            var result = JSON.parse(res.body);
-            if (result.latest_version > launcherVersion)
-            {
-                $("#updateMsg").text(result.msg);
-                $("#updateTitle").text(result.title);
-                $("#updateHref").attr("href", result.href);
-            }
-        }
-    }
 });
 
 //prevent selection
@@ -282,9 +254,41 @@ $(document).ready(function () {
     /*
      * End of listeners
      */
-
-//    downloadAssets(ver, function () {
-//        console.log("done?!");
-//    });
-
 });
+
+function checkUpdate() {
+    httpreq.get("https://launcherminecraft.pl/update.json", function (err, res) {
+        if (!err)
+        {
+            if (res.statusCode == 200)
+            {
+                var result = JSON.parse(res.body);
+                if (result.latest_version > launcherVersion)
+                {
+                    $("#updateMsg").text(result.msg);
+                    $("#updateTitle").text(result.title);
+                    $("#updateHref").attr("href", result.href);
+                }
+            }
+        }
+    });
+}
+
+function initFeedbackButton() {
+    var h = document.getElementsByTagName('head')[0];
+    (function () {
+        var fc = document.createElement('link');
+        fc.type = 'text/css';
+        fc.rel = 'stylesheet';
+        fc.href = 'https://product.feedbacklite.com/feedbacklite.css';
+        h.appendChild(fc);
+    })();
+    var fbl = {'campaign': {'id': 638, 'type': 2, 'size': 1, 'position': 9, 'tab': 2, 'control': 2}};
+    (function () {
+        var fj = document.createElement('script');
+        fj.type = 'text/javascript';
+        fj.async = true;
+        fj.src = 'https://product.feedbacklite.com/feedbacklite.js';
+        h.appendChild(fj);
+    })();
+}
