@@ -101,13 +101,17 @@
                         <div class="row" id="versionListContainer" style="display:none">
                             <br>
                             <div class="col-xs-8 col-xs-offset-2">
-                                <div class="form-group">
+                                <div class="form-group" style="margin-bottom: 0;">
                                     <label for="versionsList" class="shadow"><t>version</t></label>
                                     <select id="versionsList" class="form-control">
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-xs-12">
+                                <input type="checkbox" id="non-standard-versions" value="false"> Pokazuj niestandardowe wersje
+                            </div>
                         </div>
+                        <br>
                         <button id="start_version" type="button" class="btn btn-lg btn-success" style="display:none">
                             <t>start</t> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                         </button>

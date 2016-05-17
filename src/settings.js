@@ -28,10 +28,7 @@ function loadSettings() {
 }
 
 function saveSettings() {
-    fs.writeFileSync(settingsFile, JSON.stringify({
-        version: settings.version,
-        language: settings.language
-    }));
+    fs.writeFileSync(settingsFile, JSON.stringify(settings));
 }
 
 function loadLanguage() {

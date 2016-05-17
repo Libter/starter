@@ -55,6 +55,8 @@ $(function () {
         }
     );
     
+    $("#non-standard-versions").prop("checked", settings["nonStandardVersions"]);
+    
     //listeners
     $("#close").on("click", window.close);
     $("#loginFormContainer").on("submit", loginSubmit);
@@ -63,6 +65,9 @@ $(function () {
     $("#signInOffline").on("click", offlineLoginClick);
     $("#logout").on("click", logoutClick);
     $("#start_version").on("click", startClick);
+    $("#non-standard-versions").change(function() {
+        nonStandardVersionsChange($(this).is(":checked"));
+    });
 });
 
 function loginClick() {
@@ -163,6 +168,20 @@ function logoutClick() {
         $("#signin").show();
         $("#signIn").attr("disabled", false).val(t.login);
     });
+}
+
+function nonStandardVersionsChange(checked) {
+    $("#versionsList option").each(function(index, element) {
+        element = $(element);
+        if (element.data("type") != "release") {
+            if (checked)
+                element.show();
+            else
+                element.hide();
+        }
+    });
+    settings["nonStandardVersions"] = checked;
+    saveSettings();
 }
 
 function checkUpdate() {
