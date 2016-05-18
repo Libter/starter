@@ -1,10 +1,17 @@
 # Starter - simple to use MC launcher
 
-## How to run
+## How to run (as a user)
 
 1. Download from https://github.com/lvlup-pro/starter/releases/latest
 2. Unpack .zip
 3. Run starter.exe
+
+## How to run (as a developer)
+
+1. Go to http://nwjs.io/ and download nw.js for linux64 and win32. Version 0.12.3 is tested and it's working.
+2. Unpack .zips to nw/linux64 and nw/win32.
+3. For windows start run.bat, for linux run.sh
+4. PROFIT!!!
 
 ## How to build
 
