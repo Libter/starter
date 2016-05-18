@@ -58,7 +58,7 @@ $(function () {
     $("#non-standard-versions").prop("checked", settings["nonStandardVersions"]);
     
     //listeners
-    $("#close").on("click", window.close);
+    $("#close").on("click", closeWindow);
     $("#loginFormContainer").on("submit", loginSubmit);
     $("#signin").on("click", loginClick);
     $("#signIn").on("click", loginSubmit);
@@ -69,6 +69,10 @@ $(function () {
         nonStandardVersionsChange($(this).is(":checked"));
     });
 });
+
+function closeWindow() {
+    window.close();
+}
 
 function loginClick() {
     $('#loginModal').modal('show');
