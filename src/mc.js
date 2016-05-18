@@ -54,7 +54,8 @@ function generateVersionList(err, data)
     $.each(obj.versions, function (i, item) {
         appendVersionList(item);
     });
-    //$("#versionsList").show();
+    
+    nonStandardVersionsChange($("#non-standard-versions").prop("checked"));
 }
 
 function appendVersionList(item)

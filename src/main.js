@@ -56,7 +56,7 @@ $(function () {
     );
     
     $("#non-standard-versions").prop("checked", settings["nonStandardVersions"]);
-    
+
     //listeners
     $("#close").on("click", closeWindow);
     $("#loginFormContainer").on("submit", loginSubmit);
