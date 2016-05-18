@@ -68,6 +68,7 @@ $(function () {
     $("#non-standard-versions").change(function() {
         nonStandardVersionsChange($(this).is(":checked"));
     });
+    $("#versions").change(versionsChange);
 });
 
 function closeWindow() {
@@ -143,17 +144,13 @@ function afterLogin(username, mode) {
 
 function startClick() {
     $("#start_version").hide();
-        
-    var ver = $("#versions option:selected").val();
-    settings["version"] = ver;
-    saveSettings();
-    
     $("div .progress").show();
-    
-    downloadVersionFiles(ver, function () {
-        downloadLibs(ver, function () {
-            downloadAssets(ver, function () {
-                generateCmd(ver, function () {
+        
+    var version = $("#versions option:selected").val();
+    downloadVersionFiles(version, function () {
+        downloadLibs(version, function () {
+            downloadAssets(version, function () {
+                generateCmd(version, function () {
                     $("div .progress").hide();
                     $("#start_version").show();
                 });
@@ -185,6 +182,11 @@ function nonStandardVersionsChange(checked) {
         }
     });
     settings["nonStandardVersions"] = checked;
+    saveSettings();
+}
+
+function versionsChange() {
+    settings["version"] = $("#versions option:selected").val();
     saveSettings();
 }
 
