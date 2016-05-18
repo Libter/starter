@@ -1,9 +1,10 @@
-/build
+/.idea/
+/nbproject/
 /node_modules/
-/mc/
+/build/
 /logs/
+/nw/
+/mc/
 /v8.log
 /profile.json
-/nw/
-/nbproject/
-/.idea/
+/settings.json
