@@ -14,5 +14,6 @@ window.locale.pl = {
     start: 'Start',
     authenticationFailed: 'Nieprawidłowy login i hasło lub serwer autoryzacji jest niedostępny',
     loginTooShort: 'Login musi mieć co najmniej <number> znaki!',
-    emptyPasswordInfo: 'Jeśli nie podasz hasła zostaniesz zalogowany w trybie offline.'
+    emptyPasswordInfo: 'Jeśli nie podasz hasła zostaniesz zalogowany w trybie offline.',
+    showNonStandard: 'Pokazuj niestandardowe wersje'
 };
