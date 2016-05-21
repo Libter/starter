@@ -15,7 +15,7 @@
  Copyright (C) 2015 Michał Frąckiewicz
  */
 
-var settings = [];
+var settings = {};
 var settingsFile = process.cwd() + path.sep + "settings.json";
 
 function loadSettings() {
@@ -23,17 +23,22 @@ function loadSettings() {
         settings = JSON.parse(fs.readFileSync(settingsFile, "utf8"));
     } catch(e) {
         console.log(e);
-        settings = [];
+        settings = {};
     }
 }
 
-function saveSettings() {
+function getSetting(key) {
+    return settings[key];
+}
+
+function setSetting(key, value) {
+    settings[key] = value;
     fs.writeFileSync(settingsFile, JSON.stringify(settings));
 }
 
 function loadLanguage() {
     if (settings.language == undefined) {
-        if (navigator.language == 'pl')
+        if (navigator.language == "pl")
             window.t = locale.pl;
         else
             window.t = locale.en;
@@ -48,13 +53,11 @@ function loadLanguage() {
     });
     
     $("#locale-pl").click(function() {
-        settings.language = 'pl';
-        saveSettings();
+        setSetting("language", "pl");
         location.reload();
     });
     $("#locale-en").click(function() {
-        settings.language = 'en';
-        saveSettings();
+        setSetting("language", "en");
         location.reload();
     });
 }

@@ -55,7 +55,7 @@ $(function () {
         }
     );
     
-    $("#non-standard-versions").prop("checked", settings["nonStandardVersions"]);
+    $("#non-standard-versions").prop("checked", getSetting("nonStandardVersions"));
 
     //listeners
     $("#close").on("click", closeWindow);
@@ -181,13 +181,11 @@ function nonStandardVersionsChange(checked) {
                 element.hide();
         }
     });
-    settings["nonStandardVersions"] = checked;
-    saveSettings();
+    setSetting("nonStandardVersions", checked);
 }
 
 function versionsChange() {
-    settings["version"] = $("#versions option:selected").val();
-    saveSettings();
+    setSetting("version", $("#versions option:selected").val());
 }
 
 function checkUpdate() {
