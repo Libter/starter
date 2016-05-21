@@ -15,6 +15,30 @@
  Copyright (C) 2015 Michał Frąckiewicz
  */
  
+function done(txt)
+{
+    console.log("Done " + txt);
+}
+
+function checkInternet(cb)
+{
+    require('dns').lookup('google.com', function (err) {
+        if (err && err.code == "ENOTFOUND") {
+            cb(false);
+        } else {
+            cb(true);
+        }
+    })
+}
+
+/**
+ * Add quotes to string
+ * @param str
+ */
+function quote(str) {
+    return '"' + str + '"';
+} 
+
 function openLinksInRealBrowser() {
     $('a[target=_blank]').on('click', function () {
         require('nw.gui').Shell.openExternal(this.href);
